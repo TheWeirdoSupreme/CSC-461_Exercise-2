@@ -199,7 +199,7 @@ function main() {
     vcontext = canvas.getContext("2d");
     w = context.canvas.width; // as set in html
     h = context.canvas.height;  // as set in html
-    imagedata = context.createImageData(w,h);
+    var imagedata2 = context.createImageData(w,h);
 
      // Define a rectangle in 2D with colors and coords at corners
     ulc = new Color(255,0,255,255); // upper right corner color: Magenta
@@ -228,12 +228,12 @@ function main() {
         hc.copy(lc); // begin with the left color
         hcDelta.copy(rc).subtract(lc).scale(hDelta); // reset horiz color delta
         for (var x=ulx; x<=urx; x++) {
-            drawPixel(imagedata,x,y,hc);
+            drawPixel(imagedata2,x,y,hc);
             hc.add(hcDelta);
         } // end horizontal
         lc.add(lcDelta);
         rc.add(rcDelta);
     } // end vertical
     
-    context.putImageData(imagedata, 0, 0); // display the image in the context
+    context.putImageData(imagedata2, 0, 0); // display the image in the context
 }
