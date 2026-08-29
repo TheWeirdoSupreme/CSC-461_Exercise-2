@@ -195,33 +195,33 @@ function main() {
 
     //Triangle
     // Get the canvas, context, and image data
-    canvas = document.getElementById("viewport2"); 
+    canvas = document.getElementById("viewport"); 
     vcontext = canvas.getContext("2d");
     w = context.canvas.width; // as set in html
     h = context.canvas.height;  // as set in html
     imagedata = context.createImageData(w,h);
 
      // Define a rectangle in 2D with colors and coords at corners
-    var ulc = new Color(255,0,255,255); // upper right corner color: Magenta
-    var urc = new Color(0,255,255,255); // upper left corner color: Cyan
-    var llc = new Color(255,255,0,255); // lower left corner color: Yellow
-    var lrc = new Color(255,192,203,255); // lower right corner color: Pink
-    var ulx = 50, uly = 50; // upper left corner position
-    var urx = 200, ury = 50; // upper right corner position
-    var llx = 50, lly = 150; // lower left corner position
-    var lrx = 200, lry = 150; // lower right corner position
+    ulc = new Color(255,0,255,255); // upper right corner color: Magenta
+    urc = new Color(0,255,255,255); // upper left corner color: Cyan
+    llc = new Color(255,255,0,255); // lower left corner color: Yellow
+    lrc = new Color(255,192,203,255); // lower right corner color: Pink
+    ulx = 250, uly = 50; // upper left corner position
+    urx = 400, ury = 50; // upper right corner position
+    llx = 250, lly = 150; // lower left corner position
+    lrx = 400, lry = 150; // lower right corner position
     
     // set up the vertical interpolation
-    var lc = ulc.clone();  // left color
-    var rc = urc.clone();  // right color
-    var vDelta = 1 / (lly-uly); // norm'd vertical delta
-    var lcDelta = llc.clone().subtract(ulc).scale(vDelta); // left vert color delta
-    var rcDelta = lrc.clone().subtract(urc).scale(vDelta); // right vert color delta
+    lc = ulc.clone();  // left color
+    rc = urc.clone();  // right color
+    vDelta = 1 / (lly-uly); // norm'd vertical delta
+    lcDelta = llc.clone().subtract(ulc).scale(vDelta); // left vert color delta
+    rcDelta = lrc.clone().subtract(urc).scale(vDelta); // right vert color delta
     
     // set up the horizontal interpolation
-    var hc = new Color(); // horizontal color
-    var hDelta = 1 / (urx-ulx); // norm'd horizontal delta
-    var hcDelta = new Color(); // horizontal color delta
+    hc = new Color(); // horizontal color
+    hDelta = 1 / (urx-ulx); // norm'd horizontal delta
+    hcDelta = new Color(); // horizontal color delta
     
     // do the interpolation
     for (var y=uly; y<=lly; y++) {
