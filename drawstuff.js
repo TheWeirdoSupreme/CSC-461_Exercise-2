@@ -144,7 +144,12 @@ function drawPixel(imagedata,x,y,color) {
         console.log(e);
     }
 } // end drawPixel
-    
+
+//Calculate the cross product of the provided coordinates 
+//(Citing - https://kitsunegames.com/post/development/2016/07/28/software-3d-rendering-in-javascript-pt2/)
+function cross(a, b, c) {
+  return (b.x - a.x) * -(c.y - a.y) - -(b.y - a.y) * (c.x - a.x);
+}
 
 /* main -- here is where execution begins after window load */
 
@@ -194,40 +199,29 @@ function main() {
     context.putImageData(imagedata, 0, 0); // display the image in the context
 
     //Triangle
-    // Get the canvas, context, and image data
-    canvas = document.getElementById("viewport"); 
-    vcontext = canvas.getContext("2d");
-    w = context.canvas.width; // as set in html
-    h = context.canvas.height;  // as set in html
-    var imagedata2 = context.createImageData(w,h);
+    //Citing - https://kitsunegames.com/post/development/2016/07/28/software-3d-rendering-in-javascript-pt2/
+    //Vertices
+    var v0 = { x: 125, y: 50, z: 0}
+    var v1 = { x: 50, y: 150, z: 0}
+    var v2 = { x: 200, y: 150, z: 0}
 
-     // Define a rectangle in 2D with colors and coords at corners
-    ulc = new Color(255,0,255,255); // upper right corner color: Magenta
-    urc = new Color(0,255,255,255); // upper left corner color: Cyan
-    llc = new Color(255,255,0,255); // lower left corner color: Yellow
-    lrc = new Color(255,192,203,255); // lower right corner color: Pink
-    ulx = 50, uly = 50; // upper left corner position
-    urx = 200, ury = 50; // upper right corner position
-    llx = 50, lly = 150; // lower left corner position
-    lrx = 200, lry = 150; // lower right corner position
-    
-    // set up the vertical interpolation
-    lc = ulc.clone();  // left color
-    rc = urc.clone();  // right color
-    vDelta = 1 / (lly-uly); // norm'd vertical delta
-    lcDelta = llc.clone().subtract(ulc).scale(vDelta); // left vert color delta
-    rcDelta = lrc.clone().subtract(urc).scale(vDelta); // right vert color delta
-    
-    // set up the horizontal interpolation
-    hc = new Color(); // horizontal color
-    hDelta = 1 / (urx-ulx); // norm'd horizontal delta
-    hcDelta = new Color(); // horizontal color delta
+    //Pixel Bounds
+    var minX = Math.floor(Math.min(v0.x, v1.x, v2.x));
+    var maxX = Math.ceil(Math.max(v0.x, v1.x, v2.x));
+    var minY = Math.floor(Math.min(v0.y, v1.y, v2.y));
+    var maxY = Math.ceil(Math.max(v0.y, v1.y, v2.y));
     
     // do the interpolation
     for (var y=uly; y<=lly; y++) {
         hc.copy(lc); // begin with the left color
         hcDelta.copy(rc).subtract(lc).scale(hDelta); // reset horiz color delta
         for (var x=ulx; x<=urx; x++) {
+            // sample from the center of the pixel, not the top-left corner
+            p.x = x + 0.5; p.y = y + 0.5;
+            // if the point is not inside our polygon, skip fragment
+            if (cross(v1, v2, p) < 0 || cross(v2, v0, p) < 0 || cross(v0, v1, p) < 0) {
+                continue; 
+            }
             drawPixel(imagedata2,x,y,hc);
             hc.add(hcDelta);
         } // end horizontal
