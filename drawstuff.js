@@ -235,5 +235,5 @@ function main() {
         rc.add(rcDelta);
     } // end vertical
     
-    context.putImageData(imagedata2, 0, 0); // display the image in the context
+    context.putImageData(imagedata2, 300, 0); // display the image in the context
 }
