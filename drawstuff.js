@@ -206,10 +206,10 @@ function main() {
     urc = new Color(0,255,255,255); // upper left corner color: Cyan
     llc = new Color(255,255,0,255); // lower left corner color: Yellow
     lrc = new Color(255,192,203,255); // lower right corner color: Pink
-    ulx = 250, uly = 250; // upper left corner position
-    urx = 400, ury = 250; // upper right corner position
-    llx = 250, lly = 150; // lower left corner position
-    lrx = 400, lry = 150; // lower right corner position
+    ulx = 50, uly = 50; // upper left corner position
+    urx = 200, ury = 50; // upper right corner position
+    llx = 50, lly = 150; // lower left corner position
+    lrx = 200, lry = 150; // lower right corner position
     
     // set up the vertical interpolation
     lc = ulc.clone();  // left color
