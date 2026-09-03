@@ -161,7 +161,6 @@ function main() {
     var w = context.canvas.width; // as set in html
     var h = context.canvas.height;  // as set in html
     var imagedata = context.createImageData(w,h);
- /*
     
     // Define a rectangle in 2D with colors and coords at corners
     var ulc = new Color(255,0,255,255); // upper right corner color: Magenta
@@ -198,7 +197,7 @@ function main() {
     } // end vertical
     
     context.putImageData(imagedata, 0, 0); // display the image in the context
-*/
+    
     // Triangle
     var imagedata2 = context.createImageData(w, h);
     // Citing - https://kitsunegames.com/post/development/2016/07/28/software-3d-rendering-in-javascript-pt2/
