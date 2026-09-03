@@ -198,38 +198,48 @@ function main() {
     
     context.putImageData(imagedata, 0, 0); // display the image in the context
 
-    //Triangle
-    //Citing - https://kitsunegames.com/post/development/2016/07/28/software-3d-rendering-in-javascript-pt2/
-    //Vertices
+    // Triangle
+    // Citing - https://kitsunegames.com/post/development/2016/07/28/software-3d-rendering-in-javascript-pt2/
+    // Vertices
     var v0 = { x: 125, y: 50, z: 0}
     var v1 = { x: 50, y: 150, z: 0}
     var v2 = { x: 200, y: 150, z: 0}
 
-    //Pixel Bounds
+    // Pixel Bounds
     var minX = Math.floor(Math.min(v0.x, v1.x, v2.x));
     var maxX = Math.ceil(Math.max(v0.x, v1.x, v2.x));
     var minY = Math.floor(Math.min(v0.y, v1.y, v2.y));
     var maxY = Math.ceil(Math.max(v0.y, v1.y, v2.y));
+
+    // Area of the Parallelogram created by the triangle
+    var area = cross(v0, v1, v2);
+
+    var props = Object.getOwnPropertyNames(v0);
+    var p = {};
     
-    //Pixel location
-    var p = {}
-    
-    // do the interpolation
-    for (var y=uly; y<=lly; y++) {
-        hc.copy(lc); // begin with the left color
-        hcDelta.copy(rc).subtract(lc).scale(hDelta); // reset horiz color delta
-        for (var x=ulx; x<=urx; x++) {
+    // Draw the Triangle
+    for (var y = minY; y < maxY; y++) {
+        for (var x = minX; x < maxX; x++) {
             // sample from the center of the pixel, not the top-left corner
             p.x = x + 0.5; p.y = y + 0.5;
-            // if the point is not inside our polygon, skip fragment
-            if (cross(v1, v2, p) >= 0 && cross(v2, v0, p) >= 0 && cross(v0, v1, p) >= 0) {
-                drawPixel(imagedata2,x,y,hc);
+            // Vertex weights
+            var w0 = cross(v1, v2, p);
+            var w1 = cross(v2, v0, p);
+            var w2 = cross(v0, v1, p);
+            // If the pixel isn't in the triangle, don't draw it
+            if (w0 < 0 || w1 < 0 || w2 < 0) {
+                continue;
             }
-            hc.add(hcDelta);
-        } // end horizontal
-        lc.add(lcDelta);
-        rc.add(rcDelta);
-    } // end vertical
+            // Interpolation
+            for (var i = 0; i < props.length; i++) {
+                var prop = props[i];
+                //Normalize by dividing by the area
+                fragment[prop] = (w0 * v0[prop] + w1 * w1[prop] + w2 * w2[prop]) / area;
+            }
+            //Set Pixel
+            drawPixel(imagedata2,x,y,hc);
+        }
+    }
     
     context.putImageData(imagedata2, 300, 0); // display the image in the context
 }
