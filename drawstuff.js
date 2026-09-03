@@ -211,6 +211,9 @@ function main() {
     var minY = Math.floor(Math.min(v0.y, v1.y, v2.y));
     var maxY = Math.ceil(Math.max(v0.y, v1.y, v2.y));
     
+    //Pixel location
+    var p = {}
+    
     // do the interpolation
     for (var y=uly; y<=lly; y++) {
         hc.copy(lc); // begin with the left color
