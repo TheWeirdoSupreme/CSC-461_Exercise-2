@@ -199,6 +199,7 @@ function main() {
     context.putImageData(imagedata, 0, 0); // display the image in the context
 
     // Triangle
+    var imagedata2 = context.createImageData(w, h);
     // Citing - https://kitsunegames.com/post/development/2016/07/28/software-3d-rendering-in-javascript-pt2/
     // Vertices
     var v0 = { x: 125, y: 50, z: 0}
