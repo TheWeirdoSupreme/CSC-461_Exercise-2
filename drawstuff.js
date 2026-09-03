@@ -219,7 +219,7 @@ function main() {
             // sample from the center of the pixel, not the top-left corner
             p.x = x + 0.5; p.y = y + 0.5;
             // if the point is not inside our polygon, skip fragment
-            if (cross(v1, v2, p) > 0 || cross(v2, v0, p) > 0 || cross(v0, v1, p) > 0) {
+            if (cross(v1, v2, p) >= 0 && cross(v2, v0, p) >= 0 && cross(v0, v1, p) >= 0) {
                 drawPixel(imagedata2,x,y,hc);
             }
             hc.add(hcDelta);
