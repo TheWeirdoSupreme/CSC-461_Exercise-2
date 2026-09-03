@@ -145,8 +145,8 @@ function drawPixel(imagedata,x,y,color) {
     }
 } // end drawPixel
 
-//Calculate the cross product of the provided coordinates 
-//(Citing - https://kitsunegames.com/post/development/2016/07/28/software-3d-rendering-in-javascript-pt2/)
+// Calculate the cross product of the provided coordinates 
+// Citing - https://kitsunegames.com/post/development/2016/07/28/software-3d-rendering-in-javascript-pt2/
 function cross(a, b, c) {
   return (b.x - a.x) * -(c.y - a.y) - -(b.y - a.y) * (c.x - a.x);
 }
@@ -161,7 +161,8 @@ function main() {
     var w = context.canvas.width; // as set in html
     var h = context.canvas.height;  // as set in html
     var imagedata = context.createImageData(w,h);
- 
+ /*
+    
     // Define a rectangle in 2D with colors and coords at corners
     var ulc = new Color(255,0,255,255); // upper right corner color: Magenta
     var urc = new Color(0,255,255,255); // upper left corner color: Cyan
@@ -197,14 +198,14 @@ function main() {
     } // end vertical
     
     context.putImageData(imagedata, 0, 0); // display the image in the context
-
+*/
     // Triangle
     var imagedata2 = context.createImageData(w, h);
     // Citing - https://kitsunegames.com/post/development/2016/07/28/software-3d-rendering-in-javascript-pt2/
     // Vertices
-    var v0 = { x: 125, y: 50, z: 0}
-    var v1 = { x: 50, y: 150, z: 0}
-    var v2 = { x: 200, y: 150, z: 0}
+    var v0 = { x: 125, y: 50, z: 0, r: 255, g: 0, b: 255} //Magenta
+    var v1 = { x: 50, y: 200, z: 0, r: 0, g: 255, b: 255} //Cyan
+    var v2 = { x: 200, y: 200, z: 0, r: 255, g: 255, b: 0} //Yellow
 
     // Pixel Bounds
     var minX = Math.floor(Math.min(v0.x, v1.x, v2.x));
@@ -216,13 +217,17 @@ function main() {
     var area = cross(v0, v1, v2);
 
     var props = Object.getOwnPropertyNames(v0);
+    //Pixel location
     var p = {};
+    //Inerpolated Color info
+    var fragment = {};
     
     // Draw the Triangle
     for (var y = minY; y < maxY; y++) {
         for (var x = minX; x < maxX; x++) {
             // sample from the center of the pixel, not the top-left corner
-            p.x = x + 0.5; p.y = y + 0.5;
+            p.x = x + 0.5; 
+            p.y = y + 0.5;
             // Vertex weights
             var w0 = cross(v1, v2, p);
             var w1 = cross(v2, v0, p);
@@ -232,15 +237,16 @@ function main() {
                 continue;
             }
             // Interpolation
-            for (var i = 0; i < props.length; i++) {
+            /*for (var i = 0; i < props.length; i++) {
                 var prop = props[i];
                 //Normalize by dividing by the area
                 fragment[prop] = (w0 * v0[prop] + w1 * w1[prop] + w2 * w2[prop]) / area;
-            }
+            }*/
             //Set Pixel
-            drawPixel(imagedata2,x,y,hc);
+            var col = new Color(0, 0, 0, 255);
+            drawPixel(imagedata2, x, y, col);
         }
     }
     
-    context.putImageData(imagedata2, 300, 0); // display the image in the context
+    context.putImageData(imagedata2, 250, 0); // display the image in the context
 }
