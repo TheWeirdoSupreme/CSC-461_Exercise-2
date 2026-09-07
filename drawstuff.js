@@ -196,15 +196,15 @@ function main() {
         rc.add(rcDelta);
     } // end vertical
     
-    context.putImageData(imagedata, 0, 0); // display the image in the context
+    //context.putImageData(imagedata, 0, 0); // display the image in the context
     
     // Triangle
-    var imagedata2 = context.getImageData(0, 0, w, h);
+    //var imagedata2 = context.getImageData(0, 0, w, h);
     // Citing - https://kitsunegames.com/post/development/2016/07/28/software-3d-rendering-in-javascript-pt2/
     // Vertices
-    var v0 = { x: 125, y: 50, z: 0, r: 255, g: 0, b: 255} //Magenta
-    var v1 = { x: 50, y: 200, z: 0, r: 0, g: 255, b: 255} //Cyan
-    var v2 = { x: 200, y: 200, z: 0, r: 255, g: 255, b: 0} //Yellow
+    var v0 = { x: 225, y: 200, z: 0, r: 255, g: 0, b: 255} //Magenta
+    var v1 = { x: 10, y: 300, z: 0, r: 0, g: 255, b: 255} //Cyan
+    var v2 = { x: 300, y: 300, z: 0, r: 255, g: 255, b: 0} //Yellow
 
     // Pixel Bounds
     var minX = Math.floor(Math.min(v0.x, v1.x, v2.x));
@@ -243,9 +243,9 @@ function main() {
             }*/
             //Set Pixel
             var col = new Color(0, 0, 0, 255);
-            drawPixel(imagedata2, x, y, col);
+            drawPixel(imagedata, x, y, col);
         }
     }
     
-    context.putImageData(imagedata2, 300, 0); // display the image in the context
+    context.putImageData(imagedata, 50, 0); // display the image in the context
 }
