@@ -236,13 +236,13 @@ function main() {
                 continue;
             }
             // Interpolation
-            /*for (var i = 0; i < props.length; i++) {
+            for (var i = 0; i < props.length; i++) {
                 var prop = props[i];
                 //Normalize by dividing by the area
                 fragment[prop] = (w0 * v0[prop] + w1 * w1[prop] + w2 * w2[prop]) / area;
-            }*/
+            }
             //Set Pixel
-            var col = new Color(0, 0, 0, 255);
+            var col = new Color(fragment.r, fragment.g, fragment.b, 255);
             drawPixel(imagedata, x, y, col);
         }
     }
