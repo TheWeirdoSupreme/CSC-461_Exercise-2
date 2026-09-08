@@ -202,9 +202,9 @@ function main() {
     //var imagedata2 = context.getImageData(0, 0, w, h);
     // Citing - https://kitsunegames.com/post/development/2016/07/28/software-3d-rendering-in-javascript-pt2/
     // Vertices
-    var v0 = { x: 225, y: 200, z: 0, r: 255, g: 0, b: 255} //Magenta
-    var v1 = { x: 10, y: 300, z: 0, r: 0, g: 255, b: 255} //Cyan
-    var v2 = { x: 300, y: 300, z: 0, r: 255, g: 255, b: 0} //Yellow
+    var v0 = { x: 225, y: 200, z: 0, r: 1.0, g: 0.0, b: 1.0} //Magenta
+    var v1 = { x: 10, y: 300, z: 0, r: 0.0, g: 1.0, b: 1.0} //Cyan
+    var v2 = { x: 300, y: 300, z: 0, r: 1.0, g: 1.0, b: 0.0} //Yellow
 
     // Pixel Bounds
     var minX = Math.floor(Math.min(v0.x, v1.x, v2.x));
@@ -242,9 +242,9 @@ function main() {
                 fragment[prop] = (w0 * v0[prop] + w1 * w1[prop] + w2 * w2[prop]) / area;
             }
             //Set Pixel
-            var fragR = typeof fragment.r === "number" ? (fragment.r * 256) | 0 : 0;
-            var fragG = typeof fragment.g === "number" ? (fragment.g * 256) | 0 : 0;
-            var fragB = typeof fragment.b === "number" ? (fragment.b * 256) | 0 : 0;
+            var fragR = typeof fragment.r === "number" ? (fragment.r * 255) | 0 : 0;
+            var fragG = typeof fragment.g === "number" ? (fragment.g * 255) | 0 : 0;
+            var fragB = typeof fragment.b === "number" ? (fragment.b * 255) | 0 : 0;
             var col = new Color(fragR, fragG, fragB, 255);
             drawPixel(imagedata, x, y, col);
         }
