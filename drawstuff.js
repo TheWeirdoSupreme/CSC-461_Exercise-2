@@ -242,7 +242,10 @@ function main() {
                 fragment[prop] = (w0 * v0[prop] + w1 * w1[prop] + w2 * w2[prop]) / area;
             }
             //Set Pixel
-            var col = new Color(fragment.r, fragment.g, fragment.b, 255);
+            var fragR = typeof fragment.r === "number" ? (fragment.r * 256) | 0 : 0;
+            var fragG = typeof fragment.g === "number" ? (fragment.g * 256) | 0 : 0;
+            var fragB = typeof fragment.b === "number" ? (fragment.b * 256) | 0 : 0;
+            var col = new Color(fragR, fragG, fragB, 255);
             drawPixel(imagedata, x, y, col);
         }
     }
